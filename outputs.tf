@@ -10,3 +10,13 @@ output "docker_network" {
 output "docker_volume" {
   value = docker_volume.data.name
 }
+
+output "postgres_container" {
+  description = "Nom du conteneur PostgreSQL"
+  value       = docker_container.postgres.name
+}
+
+output "postgres_database" {
+  description = "nom de la base de donnees"
+  value       = var.postgres_db
+}
