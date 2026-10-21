@@ -1,0 +1,21 @@
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Fichiers de variables sensibles
+*.tfvars
+*.tfvars.json
+
+# Fichiers locaux
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Fichier de configuration CLI local
+.terraformrc
+terraform.rc
