@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraform Infrastructure</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Mon infrastructure locale</h1>
+        <p>Frontend connecté à Flask et PostgreSQL</p>
+        <p id="status">Vérification du backend...</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Ajouter un message</h2>
+
+            <form id="message-form">
+                <input
+                    type="text"
+                    id="message"
+                    placeholder="Écris un message..."
+                    required
+                >
+                <button type="submit">Enregistrer</button>
+            </form>
+
+            <p id="feedback"></p>
+        </section>
+
+        <section>
+            <h2>Messages enregistrés</h2>
+            <button id="refresh" type="button">
+                Actualiser
+            </button>
+
+            <ul id="messages"></ul>
+        </section>
+    </main>
+</body>
+</html>

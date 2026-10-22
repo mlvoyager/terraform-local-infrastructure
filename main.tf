@@ -6,6 +6,13 @@ resource "docker_volume" "data" {
   name = "terraform-data"
 }
 
+resource "docker_image" "frontend" {
+  name = "terraform-fronted:latest"
+  build {
+    context    = "${path.module}/frontend"
+    dockerfile = "Dockerfile"
+  }
+}
 
 resource "docker_image" "nginx" {
   name         = "nginx:alpine"
@@ -14,7 +21,7 @@ resource "docker_image" "nginx" {
 
 resource "docker_container" "nginx" {
   name  = "terraform-nginx"
-  image = docker_image.nginx.image_id
+  image = docker_image.frontend.image_id
 
   ports {
     internal = 80
