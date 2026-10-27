@@ -1,3 +1,4 @@
+#CI workflow
 name: CI pipeline
 on:
   push:
@@ -25,4 +26,4 @@ jobs:
     - name: Run pytest
       run: python -m pytest backend/
     - name: Build Docker image
-      run: docker build -t monapp .
+      run: docker build -t monapp -f backend/Dockerfile backend/
