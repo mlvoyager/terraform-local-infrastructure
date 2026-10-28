@@ -40,3 +40,18 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:${{ github.sha }}
+
+    - name: build and push frontend image
+      uses: docker/build-push-action@v6
+      with:
+        context: ./frontend-react
+        file: ./frontend-react/Dockerfile
+        push: true
+        tags: |
+          ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
+
+
+
+
+
