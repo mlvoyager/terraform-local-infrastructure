@@ -1,0 +1,47 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskflow-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskflow-backend
+  template:
+    metadata:
+      labels:
+        app: taskflow-backend
+    spec:
+      containers:
+        - name: backend
+          image: amaloff/taskflow-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_HOST
+              value: taskflow-postgres
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: taskflow
+            - name: DB_USER
+              value: taskflow_user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: taskflow-db-secret
+                  key: DB_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskflow-backend
+spec:
+  selector:
+    app: taskflow-backend
+  ports:
+    - port: 5000
+      targetPort: 5000
+  type: ClusterIP
