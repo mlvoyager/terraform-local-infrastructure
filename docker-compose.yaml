@@ -1,0 +1,41 @@
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mabase
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: monbackend
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: appdb
+      DB_USER: appuser
+      DB_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend-react
+    container_name: monfrontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
