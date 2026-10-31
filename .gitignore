@@ -26,3 +26,5 @@ frontend-react/dist/
 backend/.venv/
 __pycache__/
 *.py[cod]
+
+.env

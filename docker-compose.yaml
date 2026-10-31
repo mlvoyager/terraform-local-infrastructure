@@ -9,21 +9,23 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+
     restart: unless-stopped
 
-  backend:
+  taskflow-backend:
     build: ./backend
-    container_name: monbackend
+    container_name: taskflow-backend
     environment:
       DB_HOST: db
       DB_PORT: "5432"
       DB_NAME: appdb
       DB_USER: appuser
       DB_PASSWORD: ${DB_PASSWORD}
-    ports:
-      - "5000:5000"
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ADMIN_NAME: ${ADMIN_NAME:-Admin}
+
     depends_on:
       - db
     restart: unless-stopped
@@ -34,7 +36,7 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - backend
+      - taskflow-backend
     restart: unless-stopped
 
 volumes:

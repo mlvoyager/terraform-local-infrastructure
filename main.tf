@@ -62,7 +62,7 @@ resource "docker_container" "postgres" {
 
 
 resource "docker_image" "backend" {
-  name = "terraform-backend:1.0"
+  name = "taskflow-backend:1.0"
   build {
     context = "${path.module}/backend" # ici on va construire l'image a partir du dockerfile
   }
